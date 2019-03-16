@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let initialViewController = ViewController()
         self.window?.rootViewController = initialViewController
         self.window?.makeKeyAndVisible()
+        application.applicationSupportsShakeToEdit = true
         return true
     }
 
