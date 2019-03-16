@@ -9,12 +9,12 @@
 import UIKit
 
 class ViewController: UIViewController {
+    var myView: View! { return view as? View }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    override func loadView() {
+        super.loadView()
+        let myView = View()
+        view = myView
     }
-
-
 }
 
