@@ -7,15 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D62F92122417B1B00AFD1BC /* SmoothCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D62F92022417B1B00AFD1BC /* SmoothCanvasView.swift */; };
+		0D62F9232241802600AFD1BC /* CatmullSmoothCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D62F9222241802600AFD1BC /* CatmullSmoothCanvas.swift */; };
+		0D62F9252241816400AFD1BC /* SmoothDraw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D62F9242241816400AFD1BC /* SmoothDraw.swift */; };
 		0DE08889223D400E0072F84B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE08888223D400E0072F84B /* AppDelegate.swift */; };
 		0DE0888B223D400E0072F84B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE0888A223D400E0072F84B /* ViewController.swift */; };
 		0DE08890223D40100072F84B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DE0888F223D40100072F84B /* Assets.xcassets */; };
 		0DE08893223D40100072F84B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DE08891223D40100072F84B /* LaunchScreen.storyboard */; };
 		0DE0889E223D41380072F84B /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE0889D223D41380072F84B /* View.swift */; };
-		0DE088A0223D483E0072F84B /* SmoothCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE0889F223D483E0072F84B /* SmoothCanvasView.swift */; };
+		0DE088A0223D483E0072F84B /* SmoothCanvasImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE0889F223D483E0072F84B /* SmoothCanvasImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D62F92022417B1B00AFD1BC /* SmoothCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmoothCanvasView.swift; sourceTree = "<group>"; };
+		0D62F9222241802600AFD1BC /* CatmullSmoothCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatmullSmoothCanvas.swift; sourceTree = "<group>"; };
+		0D62F9242241816400AFD1BC /* SmoothDraw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmoothDraw.swift; sourceTree = "<group>"; };
 		0DE08885223D400E0072F84B /* SmoothCanvas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmoothCanvas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DE08888223D400E0072F84B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0DE0888A223D400E0072F84B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -23,7 +29,7 @@
 		0DE08892223D40100072F84B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0DE08894223D40100072F84B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0DE0889D223D41380072F84B /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
-		0DE0889F223D483E0072F84B /* SmoothCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmoothCanvasView.swift; sourceTree = "<group>"; };
+		0DE0889F223D483E0072F84B /* SmoothCanvasImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmoothCanvasImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,9 +64,12 @@
 			isa = PBXGroup;
 			children = (
 				0DE08888223D400E0072F84B /* AppDelegate.swift */,
-				0DE0889F223D483E0072F84B /* SmoothCanvasView.swift */,
+				0D62F92022417B1B00AFD1BC /* SmoothCanvasView.swift */,
+				0D62F9222241802600AFD1BC /* CatmullSmoothCanvas.swift */,
+				0DE0889F223D483E0072F84B /* SmoothCanvasImageView.swift */,
 				0DE0889C223D41260072F84B /* Example */,
 				0DE0889B223D410F0072F84B /* Supporting files */,
+				0D62F9242241816400AFD1BC /* SmoothDraw.swift */,
 			);
 			path = SmoothCanvas;
 			sourceTree = "<group>";
@@ -161,9 +170,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D62F92122417B1B00AFD1BC /* SmoothCanvasView.swift in Sources */,
 				0DE0888B223D400E0072F84B /* ViewController.swift in Sources */,
 				0DE08889223D400E0072F84B /* AppDelegate.swift in Sources */,
-				0DE088A0223D483E0072F84B /* SmoothCanvasView.swift in Sources */,
+				0DE088A0223D483E0072F84B /* SmoothCanvasImageView.swift in Sources */,
+				0D62F9252241816400AFD1BC /* SmoothDraw.swift in Sources */,
+				0D62F9232241802600AFD1BC /* CatmullSmoothCanvas.swift in Sources */,
 				0DE0889E223D41380072F84B /* View.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

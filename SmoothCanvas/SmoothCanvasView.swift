@@ -2,104 +2,132 @@
 //  SmoothCanvasView.swift
 //  SmoothCanvas
 //
-//  Created by Benedek Varga on 2019. 03. 16..
+//  Created by Benedek Varga on 2019. 03. 19..
 //  Copyright © 2019. Benedek Varga. All rights reserved.
 //
 
 import UIKit
 
-open class SmoothCanvasView: UIImageView {
+class SmoothCanvasView: UIView {
 
-    public let defaultLineWidth: CGFloat = 1.3
-    private var drawColor: UIColor = .black
+    var points: [CGPoint]?
+    var path: UIBezierPath?
+    var pathLayer: CAShapeLayer!
 
-    private var maximumLineWidth: CGFloat {
-        return defaultLineWidth + 0.7
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        pathLayer = CAShapeLayer()
+        pathLayer.fillColor = UIColor.clear.cgColor
+        pathLayer.strokeColor = UIColor.black.cgColor
+        pathLayer.lineWidth = 3
+        pathLayer.lineJoin = CAShapeLayerLineJoin.round
+        pathLayer.lineCap = CAShapeLayerLineCap.round
+        self.layer.addSublayer(pathLayer)
+
+        if let touch = touches.first {
+            points = [touch.location(in: self)]
+        }
     }
-    private var eraserColor: UIColor {
-        return backgroundColor ?? .white
-    }
-    private var drawingImage: UIImage?
 
-    override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
-
-        UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0.0)
-        let context = UIGraphicsGetCurrentContext()
-
-        drawingImage?.draw(in: bounds)
-
-        var touches = [UITouch]()
         if let coalescedTouches = event?.coalescedTouches(for: touch) {
-            touches = coalescedTouches
+            points? += coalescedTouches.map { $0.location(in: self) }
         } else {
-            touches.append(touch)
+            points?.append(touch.location(in: self))
         }
-        for touch in touches {
-            drawStroke(context: context, touch: touch)
+        guard let points = points else { return }
+        pathLayer.path = UIBezierPath.interpolateHermiteFor(points: points, closed: false).cgPath
+//        if let predictedTouches = event?.predictedTouches(for: touch) {
+//            let predictedPoints = predictedTouches.map { $0.location(in: self) }
+//            pathLayer.path = UIBezierPath.interpolateHermiteFor(points: points! + predictedPoints, closed: false).cgPath
+//        } else {
+//            pathLayer.path = UIBezierPath.interpolateHermiteFor(points: points!, closed: false).cgPath
+//        }
+    }
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let pathPoints = points else { return }
+        pathLayer.path = UIBezierPath.interpolateHermiteFor(points: pathPoints, closed: false).cgPath
+        points?.removeAll()
+    }
+}
+
+
+extension UIBezierPath {
+    static func interpolateHermiteFor(points: [CGPoint], closed: Bool = false) -> UIBezierPath {
+        guard points.count > 1 else { return UIBezierPath() }
+
+        if points.count == 2 {
+            let bezierPath = UIBezierPath()
+            bezierPath.move(to: points[0])
+            bezierPath.addLine(to: points[1])
+            return bezierPath
         }
 
-        // Update image
-        drawingImage = UIGraphicsGetImageFromCurrentImageContext()
-        if let predictedTouches = event?.predictedTouches(for: touch) {
-            for touch in predictedTouches {
-                drawStroke(context: context, touch: touch)
+        let nCurves = closed ? points.count : points.count - 1
+
+        let path = UIBezierPath()
+        for i in 0..<nCurves {
+            var curPt = points[i]
+            var prevPt: CGPoint, nextPt: CGPoint, endPt: CGPoint
+            if i == 0 {
+                path.move(to: curPt)
             }
+
+            var nexti = (i+1)%points.count
+            var previ = (i-1 < 0 ? points.count-1 : i-1)
+
+            prevPt = points[previ]
+            nextPt = points[nexti]
+            endPt = nextPt
+
+            var mx: CGFloat
+            var my: CGFloat
+            if closed || i > 0 {
+                mx  = (nextPt.x - curPt.x) * CGFloat(0.5)
+                mx += (curPt.x - prevPt.x) * CGFloat(0.5)
+                my  = (nextPt.y - curPt.y) * CGFloat(0.5)
+                my += (curPt.y - prevPt.y) * CGFloat(0.5)
+            }
+            else {
+                mx = (nextPt.x - curPt.x) * CGFloat(0.5)
+                my = (nextPt.y - curPt.y) * CGFloat(0.5)
+            }
+
+            var ctrlPt1 = CGPoint.zero
+            ctrlPt1.x = curPt.x + mx / CGFloat(3.0)
+            ctrlPt1.y = curPt.y + my / CGFloat(3.0)
+
+            curPt = points[nexti]
+
+            nexti = (nexti + 1) % points.count
+            previ = i;
+
+            prevPt = points[previ]
+            nextPt = points[nexti]
+
+            if closed || i < nCurves-1 {
+                mx  = (nextPt.x - curPt.x) * CGFloat(0.5)
+                mx += (curPt.x - prevPt.x) * CGFloat(0.5)
+                my  = (nextPt.y - curPt.y) * CGFloat(0.5)
+                my += (curPt.y - prevPt.y) * CGFloat(0.5)
+            }
+            else {
+                mx = (curPt.x - prevPt.x) * CGFloat(0.5)
+                my = (curPt.y - prevPt.y) * CGFloat(0.5)
+            }
+
+            var ctrlPt2 = CGPoint.zero
+            ctrlPt2.x = curPt.x - mx / CGFloat(3.0)
+            ctrlPt2.y = curPt.y - my / CGFloat(3.0)
+
+            path.addCurve(to: endPt, controlPoint1:ctrlPt1, controlPoint2:ctrlPt2)
         }
-        image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-    }
 
-    override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        image = drawingImage
-    }
-
-    override open func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
-        image = drawingImage
-    }
-
-    private func drawStroke(context: CGContext?, touch: UITouch) {
-        let previousLocation = touch.previousLocation(in: self)
-        let location = touch.location(in: self)
-
-        var lineWidth: CGFloat
-
-        switch touch.type {
-        case .pencil:
-            lineWidth = lineWidthForDrawing(context: context, touch: touch)
-            drawColor.setStroke()
-        default:
-            lineWidth = 40
-            eraserColor.setStroke()
+        if closed {
+            path.close()
         }
 
-        context?.setLineWidth(lineWidth)
-        context?.setLineCap(.butt)
-        context?.move(to: CGPoint(x: previousLocation.x, y: previousLocation.y))
-        context?.addLine(to: CGPoint(x: location.x, y: location.y))
-        context?.strokePath()
-    }
-
-    private func lineWidthForDrawing(context: CGContext?, touch: UITouch) -> CGFloat {
-        var lineWidth = defaultLineWidth
-        if touch.force > 0 {
-            lineWidth = touch.force > maximumLineWidth ? maximumLineWidth : (touch.force < defaultLineWidth ? defaultLineWidth : touch.force)
-        }
-        return lineWidth
-    }
-
-    func clearCanvas(animated: Bool) {
-        if animated {
-            UIView.animate(withDuration: 0.5, animations: {
-                self.alpha = 0
-            }, completion: { finished in
-                self.alpha = 1
-                self.image = nil
-                self.drawingImage = nil
-            })
-        } else {
-            image = nil
-            drawingImage = nil
-        }
+        return path
     }
 }
