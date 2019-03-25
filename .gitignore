@@ -208,3 +208,4 @@ ModuleCache/
 # Certificates
 *.cer
 *.mobileprovision
+codesigndoc_exports/
