@@ -37,12 +37,12 @@ class SmoothCanvasView: UIView {
         }
         guard let points = points else { return }
         pathLayer.path = UIBezierPath.interpolateHermiteFor(points: points, closed: false).cgPath
-//        if let predictedTouches = event?.predictedTouches(for: touch) {
-//            let predictedPoints = predictedTouches.map { $0.location(in: self) }
-//            pathLayer.path = UIBezierPath.interpolateHermiteFor(points: points! + predictedPoints, closed: false).cgPath
-//        } else {
-//            pathLayer.path = UIBezierPath.interpolateHermiteFor(points: points!, closed: false).cgPath
-//        }
+        if let predictedTouches = event?.predictedTouches(for: touch) {
+            let predictedPoints = predictedTouches.map { $0.location(in: self) }
+            pathLayer.path = UIBezierPath.interpolateHermiteFor(points: points + predictedPoints, closed: false).cgPath
+        } else {
+            pathLayer.path = UIBezierPath.interpolateHermiteFor(points: points, closed: false).cgPath
+        }
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
