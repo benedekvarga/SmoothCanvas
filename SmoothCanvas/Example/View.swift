@@ -19,7 +19,6 @@ class View: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
-
         addSubview(canvas)
         NSLayoutConstraint.activate([
             canvas.leadingAnchor.constraint(equalTo: leadingAnchor),
