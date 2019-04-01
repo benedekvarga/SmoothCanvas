@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
 s.platform = :ios
 s.ios.deployment_target = '11.0'
-s.name = "Smooth Canvas"
+s.name = "SmoothCanvas"
 s.summary = "Smooth Canvas lets users write with beautiful lines."
 s.requires_arc = true
 
