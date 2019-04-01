@@ -10,7 +10,7 @@ import UIKit
 
 open class SmoothCanvasView: UIView {
     // MARK: - Public properties
-    public var lineWith: CGFloat = 1.4
+    public var lineWidth: CGFloat = 1.4
     public var lineColor: UIColor  = .black
     public var isEraser = false
     public var points: [CGPoint]?
@@ -19,7 +19,7 @@ open class SmoothCanvasView: UIView {
     private var path: UIBezierPath?
     private var pathLayer: CAShapeLayer!
     private var drawWidth: CGFloat {
-        return isEraser ? 30 : lineWith
+        return isEraser ? 30 : lineWidth
     }
     private var drawColor: CGColor {
         return isEraser ? backgroundColor?.cgColor ?? UIColor.white.cgColor : lineColor.cgColor
