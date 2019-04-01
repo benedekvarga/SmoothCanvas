@@ -13,10 +13,10 @@ open class SmoothCanvasView: UIView {
     public var lineWith: CGFloat = 1.4
     public var lineColor: UIColor  = .black
     public var isEraser = false
+    public var path: UIBezierPath?
 
     // MARK: - Private properties
     private var points: [CGPoint]?
-    private var path: UIBezierPath?
     private var pathLayer: CAShapeLayer!
     private var drawWidth: CGFloat {
         return isEraser ? 30 : lineWith
