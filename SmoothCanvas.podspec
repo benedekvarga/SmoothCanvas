@@ -22,7 +22,7 @@ s.source = { :git => "https://github.com/benedekvarga/SmoothCanvas.git",
              :tag => "#{s.version}" }
 
 s.framework = "UIKit"
-s.source_files = "SmoothCanvas/SmoothCanvas/SmoothCanvasView.swift"
+s.source_files = "SmoothCanvas/SmoothCanvasView.swift"
 s.resources = "SmoothCanvas/**/*.{png,jpeg,jpg,storyboard,xib,xcassets}"
 
 s.swift_version = "4.2"
