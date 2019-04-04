@@ -19,13 +19,11 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        myView.eraserButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        myView.clearButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
     }
 
     @objc func buttonAction(sender: UIButton!) {
-        myView.canvas.isEraser.toggle()
-        myView.eraserButton.setTitle(myView.canvas.isEraser ? "write" : "eraser", for: .normal)
+//        myView.canvas.isEraser.toggle()
     }
 }
 

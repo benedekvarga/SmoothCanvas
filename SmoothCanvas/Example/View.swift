@@ -16,15 +16,7 @@ class View: UIView {
         return canvas
     }()
 
-    let eraserButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("eraser", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.setTitleColor(.gray, for: .highlighted)
-        button.isUserInteractionEnabled = true
-        return button
-    }()
+    let clearButton = CustomButton(title: "Clear Canvas", color: .red)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,10 +28,10 @@ class View: UIView {
             canvas.topAnchor.constraint(equalTo: topAnchor),
             canvas.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-        addSubview(eraserButton)
+        addSubview(clearButton)
         NSLayoutConstraint.activate([
-            eraserButton.topAnchor.constraint(equalTo: topAnchor, constant: 50),
-            eraserButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50)
+            clearButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
+            clearButton.topAnchor.constraint(equalTo: topAnchor, constant: 50)
         ])
     }
 

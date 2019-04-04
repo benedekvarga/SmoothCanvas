@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0D62F92122417B1B00AFD1BC /* SmoothCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D62F92022417B1B00AFD1BC /* SmoothCanvasView.swift */; };
 		0D62F9252241816400AFD1BC /* SmoothDraw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D62F9242241816400AFD1BC /* SmoothDraw.swift */; };
+		0DBFF2862255E8BE00EA134E /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBFF2852255E8BE00EA134E /* CustomButton.swift */; };
 		0DE08889223D400E0072F84B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE08888223D400E0072F84B /* AppDelegate.swift */; };
 		0DE0888B223D400E0072F84B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE0888A223D400E0072F84B /* ViewController.swift */; };
 		0DE08890223D40100072F84B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DE0888F223D40100072F84B /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		0D62F92022417B1B00AFD1BC /* SmoothCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmoothCanvasView.swift; sourceTree = "<group>"; };
 		0D62F9242241816400AFD1BC /* SmoothDraw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmoothDraw.swift; sourceTree = "<group>"; };
+		0DBFF2852255E8BE00EA134E /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		0DE08885223D400E0072F84B /* SmoothCanvas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmoothCanvas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DE08888223D400E0072F84B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0DE0888A223D400E0072F84B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 			children = (
 				0DE0889D223D41380072F84B /* View.swift */,
 				0DE0888A223D400E0072F84B /* ViewController.swift */,
+				0DBFF2852255E8BE00EA134E /* CustomButton.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -171,6 +174,7 @@
 				0DE0888B223D400E0072F84B /* ViewController.swift in Sources */,
 				0DE08889223D400E0072F84B /* AppDelegate.swift in Sources */,
 				0DE088A0223D483E0072F84B /* SmoothCanvasImageView.swift in Sources */,
+				0DBFF2862255E8BE00EA134E /* CustomButton.swift in Sources */,
 				0D62F9252241816400AFD1BC /* SmoothDraw.swift in Sources */,
 				0DE0889E223D41380072F84B /* View.swift in Sources */,
 			);
