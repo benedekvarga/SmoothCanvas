@@ -23,13 +23,14 @@ class ViewController: UIViewController {
         myView.inputModeControl.addTarget(self, action: #selector(inputChanged), for: .valueChanged)
     }
 
+    // You can clear the whole canvas.
     @objc func buttonAction(sender: UIButton!) {
         myView.canvas.clearCanvas()
     }
 
+    // You can enable or disable writing with fingers.
     @objc func inputChanged(sender: UISegmentedControl!) {
         myView.canvas.isFingerWritingEnabled = sender.selectedSegmentIndex != 0
-        print(myView.canvas.isFingerWritingEnabled)
     }
 }
 

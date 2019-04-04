@@ -55,7 +55,7 @@ open class SmoothCanvasView: UIView {
 
     public func clearCanvas() {
         points = []
-        pathLayer.path = UIBezierPath().cgPath
+        self.layer.sublayers?.removeAll()
     }
 }
 
