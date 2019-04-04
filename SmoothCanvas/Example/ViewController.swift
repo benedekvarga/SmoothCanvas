@@ -23,7 +23,7 @@ class ViewController: UIViewController {
     }
 
     @objc func buttonAction(sender: UIButton!) {
-//        myView.canvas.isEraser.toggle()
+        myView.canvas.clearCanvas()
     }
 }
 

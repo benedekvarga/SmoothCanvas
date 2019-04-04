@@ -28,7 +28,6 @@ open class SmoothCanvasView: UIView {
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         guard touch.type == .pencil || touch.type == .stylus else { return }
-
         pathLayer = CAShapeLayer()
         pathLayer.lineJoin = CAShapeLayerLineJoin.round
         pathLayer.lineCap = CAShapeLayerLineCap.round
@@ -46,6 +45,11 @@ open class SmoothCanvasView: UIView {
         points?.append(touch.location(in: self))
         guard let points = points else { return }
         pathLayer.path = points.interpolateHermiteFor().cgPath
+    }
+
+    public func clearCanvas() {
+        points = []
+        pathLayer.path = UIBezierPath().cgPath
     }
 }
 
