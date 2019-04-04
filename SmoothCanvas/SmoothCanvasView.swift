@@ -14,6 +14,8 @@ open class SmoothCanvasView: UIView {
     public var lineColor: UIColor  = .black
     public var isEraser = false
     public var points: [CGPoint]?
+    /// The value sets if user can write with fingers.
+    public var isFingerWritingEnabled = false
 
     // MARK: - Private properties
     private var path: UIBezierPath?
@@ -27,7 +29,9 @@ open class SmoothCanvasView: UIView {
 
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
-        guard touch.type == .pencil || touch.type == .stylus else { return }
+        if !isFingerWritingEnabled {
+            guard touch.type == .pencil || touch.type == .stylus else { return }
+        }
         pathLayer = CAShapeLayer()
         pathLayer.lineJoin = CAShapeLayerLineJoin.round
         pathLayer.lineCap = CAShapeLayerLineCap.round
@@ -41,7 +45,9 @@ open class SmoothCanvasView: UIView {
 
     override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
-        guard touch.type == .pencil || touch.type == .stylus else { return }
+        if !isFingerWritingEnabled {
+            guard touch.type == .pencil || touch.type == .stylus else { return }
+        }
         points?.append(touch.location(in: self))
         guard let points = points else { return }
         pathLayer.path = points.interpolateHermiteFor().cgPath

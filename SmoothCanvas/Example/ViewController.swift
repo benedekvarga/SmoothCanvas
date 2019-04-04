@@ -20,10 +20,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         myView.clearButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        myView.inputModeControl.addTarget(self, action: #selector(inputChanged), for: .valueChanged)
     }
 
     @objc func buttonAction(sender: UIButton!) {
         myView.canvas.clearCanvas()
+    }
+
+    @objc func inputChanged(sender: UISegmentedControl!) {
+        myView.canvas.isFingerWritingEnabled = sender.selectedSegmentIndex != 0
+        print(myView.canvas.isFingerWritingEnabled)
     }
 }
 
