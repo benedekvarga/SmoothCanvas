@@ -13,6 +13,9 @@ class View: UIView {
         let canvas = SmoothCanvasView()
         canvas.isUserInteractionEnabled = true
         canvas.translatesAutoresizingMaskIntoConstraints = false
+        canvas.layer.borderColor = UIColor.gray.cgColor
+        canvas.layer.borderWidth = 1
+        canvas.layer.cornerRadius = 8
         return canvas
     }()
 
@@ -25,25 +28,50 @@ class View: UIView {
         return control
     }()
 
+    let redButton = ColorPickerButton(title: "red", color: .red)
+    let blueButton = ColorPickerButton(title: "blue", color: .blue)
+    let blackButton = ColorPickerButton(title: "black", color: .black)
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
-        addSubview(canvas)
-        NSLayoutConstraint.activate([
-            canvas.leadingAnchor.constraint(equalTo: leadingAnchor),
-            canvas.trailingAnchor.constraint(equalTo: trailingAnchor),
-            canvas.topAnchor.constraint(equalTo: topAnchor),
-            canvas.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
         addSubview(clearButton)
         NSLayoutConstraint.activate([
-            clearButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50),
+            clearButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
             clearButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -50)
         ])
         addSubview(inputModeControl)
         NSLayoutConstraint.activate([
-            inputModeControl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
+            inputModeControl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
             inputModeControl.topAnchor.constraint(equalTo: topAnchor, constant: 50)
+        ])
+        addSubview(blackButton)
+        blackButton.isActive = true
+        NSLayoutConstraint.activate([
+            blackButton.topAnchor.constraint(equalTo: topAnchor, constant: 50),
+            blackButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
+            blackButton.widthAnchor.constraint(equalToConstant: 80)
+        ])
+        addSubview(redButton)
+        redButton.isActive = false
+        NSLayoutConstraint.activate([
+            redButton.topAnchor.constraint(equalTo: blackButton.bottomAnchor, constant: 25),
+            redButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
+            redButton.widthAnchor.constraint(equalToConstant: 80)
+        ])
+        addSubview(blueButton)
+        blueButton.isActive = false
+        NSLayoutConstraint.activate([
+            blueButton.topAnchor.constraint(equalTo: redButton.bottomAnchor, constant: 25),
+            blueButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
+            blueButton.widthAnchor.constraint(equalToConstant: 80)
+        ])
+        addSubview(canvas)
+        NSLayoutConstraint.activate([
+            canvas.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
+            canvas.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
+            canvas.topAnchor.constraint(equalTo: blueButton.bottomAnchor, constant: 25),
+            canvas.bottomAnchor.constraint(equalTo: clearButton.topAnchor, constant: -25)
         ])
     }
 

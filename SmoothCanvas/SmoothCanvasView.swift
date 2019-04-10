@@ -12,24 +12,25 @@ open class SmoothCanvasView: UIView {
     // MARK: - Public properties
     public var lineWidth: CGFloat = 1.4
     public var lineColor: UIColor  = .black
-    public var isEraser = false
     public var points: [CGPoint]?
     /// The value sets if user can write with fingers.
-    public var isFingerWritingEnabled = false
+    public var isWritingByTouchEnabled = false
+    /// This value sets and returns if the drawn line is an eraser.
+    public var isEraser = false
 
     // MARK: - Private properties
     private var path: UIBezierPath?
     private var pathLayer: CAShapeLayer!
     private var drawWidth: CGFloat {
-        return isEraser ? 30 : lineWidth
+        return isEraser ? 5 : lineWidth
     }
     private var drawColor: CGColor {
-        return isEraser ? backgroundColor?.cgColor ?? UIColor.white.cgColor : lineColor.cgColor
+        return isEraser ? lineColor.withAlphaComponent(0.6).cgColor : lineColor.cgColor
     }
 
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
-        if !isFingerWritingEnabled {
+        if !isWritingByTouchEnabled {
             guard touch.type == .pencil || touch.type == .stylus else { return }
         }
         pathLayer = CAShapeLayer()
@@ -45,7 +46,7 @@ open class SmoothCanvasView: UIView {
 
     override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
-        if !isFingerWritingEnabled {
+        if !isWritingByTouchEnabled {
             guard touch.type == .pencil || touch.type == .stylus else { return }
         }
         points?.append(touch.location(in: self))
