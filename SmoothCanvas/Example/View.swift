@@ -18,8 +18,8 @@ class View: UIView {
         canvas.layer.cornerRadius = 8
         return canvas
     }()
-
     let clearButton = CustomButton(title: "Clear Canvas", color: .red)
+
     let inputModeControl: UISegmentedControl = {
         let control = UISegmentedControl(items: ["Pencil Only", "All"])
         control.translatesAutoresizingMaskIntoConstraints = false
@@ -31,6 +31,24 @@ class View: UIView {
     let redButton = ColorPickerButton(title: "red", color: .red)
     let blueButton = ColorPickerButton(title: "blue", color: .blue)
     let blackButton = ColorPickerButton(title: "black", color: .black)
+
+    let lineWidthLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Line width: 1"
+        label.textAlignment = .left
+        return label
+    }()
+
+    let lineWidthSlider: UISlider = {
+        let slider = UISlider()
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        slider.maximumValue = 5
+        slider.minimumValue = 1
+        slider.value = 1
+        slider.tintColor = .black
+        return slider
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -71,7 +89,18 @@ class View: UIView {
             canvas.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
             canvas.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
             canvas.topAnchor.constraint(equalTo: blueButton.bottomAnchor, constant: 25),
-            canvas.bottomAnchor.constraint(equalTo: clearButton.topAnchor, constant: -25)
+            canvas.bottomAnchor.constraint(equalTo: clearButton.topAnchor, constant: -65)
+        ])
+        addSubview(lineWidthSlider)
+        NSLayoutConstraint.activate([
+            lineWidthSlider.centerYAnchor.constraint(equalTo: clearButton.centerYAnchor),
+            lineWidthSlider.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
+            lineWidthSlider.trailingAnchor.constraint(equalTo: clearButton.leadingAnchor, constant: -25)
+        ])
+        addSubview(lineWidthLabel)
+        NSLayoutConstraint.activate([
+            lineWidthLabel.leadingAnchor.constraint(equalTo: lineWidthSlider.leadingAnchor),
+            lineWidthLabel.bottomAnchor.constraint(equalTo: lineWidthSlider.topAnchor, constant: -12)
         ])
     }
 
