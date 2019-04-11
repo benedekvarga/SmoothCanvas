@@ -8,10 +8,21 @@
 
 import UIKit
 
+public struct PathSegment {
+    var points: [CGPoint] = []
+    let color: CGColor
+    let width: CGFloat
+
+    init(color: UIColor, width: CGFloat, points: [CGPoint]) {
+        self.color = color.cgColor
+        self.width = width
+    }
+}
+
 open class SmoothCanvasView: UIView {
     public var lineWidth: CGFloat = 1.4
     public var lineColor: UIColor  = .black
-    public var points: [CGPoint]?
+    public var writingPath = [PathSegment]()
     /// The value sets if user can write with fingers.
     public var isWritingByTouchEnabled = false
     /// This value sets and returns if the drawn line is an eraser.
@@ -38,8 +49,8 @@ open class SmoothCanvasView: UIView {
         pathLayer.strokeColor = drawColor
         pathLayer.lineWidth = drawWidth
         self.layer.addSublayer(pathLayer)
-
-        points = [touch.location(in: self)]
+        let pathSegment = PathSegment(color: lineColor, width: lineWidth, points: [touch.location(in: self)])
+        writingPath.append(pathSegment)
     }
 
     override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -47,13 +58,17 @@ open class SmoothCanvasView: UIView {
         if !isWritingByTouchEnabled {
             guard touch.type == .pencil || touch.type == .stylus else { return }
         }
-        points?.append(touch.location(in: self))
-        guard let points = points else { return }
-        pathLayer.path = points.interpolateHermiteFor().cgPath
+
+        guard var lastSection = writingPath.last else { return }
+        lastSection.points.append(touch.location(in: self))
+        writingPath.removeLast()
+        writingPath.append(lastSection)
+        pathLayer.path = lastSection.points.interpolateHermiteFor().cgPath
     }
 
     public func clearCanvas() {
-        points = []
+        print(writingPath)
+        writingPath = [PathSegment]()
         self.layer.sublayers?.removeAll()
     }
 }
