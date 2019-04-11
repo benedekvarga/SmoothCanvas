@@ -23,6 +23,7 @@ final class CustomButton: UIButton {
         self.init()
         setTitle(title, for: .normal)
         setTitleColor(color, for: .normal)
+        setTitleColor(color.withAlphaComponent(0.5), for: .highlighted)
         layer.borderColor = color.cgColor
     }
 

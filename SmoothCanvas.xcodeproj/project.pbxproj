@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D27CA8B225F605600BFE4E5 /* UIColor+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D27CA8A225F605600BFE4E5 /* UIColor+extension.swift */; };
 		0D62F92122417B1B00AFD1BC /* SmoothCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D62F92022417B1B00AFD1BC /* SmoothCanvasView.swift */; };
 		0DBFF2862255E8BE00EA134E /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBFF2852255E8BE00EA134E /* CustomButton.swift */; };
 		0DBFF28A2255F21100EA134E /* UISegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBFF2892255F21100EA134E /* UISegmentedControl.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D27CA8A225F605600BFE4E5 /* UIColor+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extension.swift"; sourceTree = "<group>"; };
 		0D62F92022417B1B00AFD1BC /* SmoothCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmoothCanvasView.swift; sourceTree = "<group>"; };
 		0DBFF2852255E8BE00EA134E /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		0DBFF2892255F21100EA134E /* UISegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentedControl.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				0DBFF2852255E8BE00EA134E /* CustomButton.swift */,
 				0DBFF2892255F21100EA134E /* UISegmentedControl.swift */,
 				0DBFF28B225606F500EA134E /* ColorPickerButton.swift */,
+				0D27CA8A225F605600BFE4E5 /* UIColor+extension.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 				0DBFF2862255E8BE00EA134E /* CustomButton.swift in Sources */,
 				0DBFF28A2255F21100EA134E /* UISegmentedControl.swift in Sources */,
 				0DE0889E223D41380072F84B /* View.swift in Sources */,
+				0D27CA8B225F605600BFE4E5 /* UIColor+extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
