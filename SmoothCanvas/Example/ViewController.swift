@@ -76,7 +76,7 @@ class ViewController: UIViewController {
             print("Saved path is not available.")
             return
         }
-        // 💪 You can load a previously saved path by setting the `writingPath` property of SmoothCanvasView.
+        // 💪 You can load a previously saved path by calling the `load([PathSegment])` method of SmoothCanvasView.
         myView.canvas.load(path: path)
     }
 }
