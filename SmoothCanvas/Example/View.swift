@@ -19,6 +19,8 @@ class View: UIView {
         return canvas
     }()
     let clearButton = CustomButton(title: "Clear Canvas", color: .red)
+    let saveButton = CustomButton(title: "Save", color: .green)
+    let loadButton = CustomButton(title: "Load", color: .blue)
 
     let inputModeControl: UISegmentedControl = {
         let control = UISegmentedControl(items: ["Pencil Only", "All"])
@@ -56,8 +58,21 @@ class View: UIView {
         addSubview(clearButton)
         NSLayoutConstraint.activate([
             clearButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
-            clearButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -50)
+            clearButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -50),
+            clearButton.widthAnchor.constraint(equalToConstant: 140)
         ])
+        addSubview(saveButton)
+        NSLayoutConstraint.activate([
+            saveButton.trailingAnchor.constraint(equalTo: clearButton.leadingAnchor, constant: -25),
+            saveButton.centerYAnchor.constraint(equalTo: clearButton.centerYAnchor),
+            saveButton.widthAnchor.constraint(equalToConstant: 80)
+        ])
+        addSubview(loadButton)
+        NSLayoutConstraint.activate([
+            loadButton.trailingAnchor.constraint(equalTo: saveButton.leadingAnchor, constant: -25),
+            loadButton.centerYAnchor.constraint(equalTo: clearButton.centerYAnchor),
+            loadButton.widthAnchor.constraint(equalToConstant: 80)
+            ])
         addSubview(inputModeControl)
         NSLayoutConstraint.activate([
             inputModeControl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
@@ -95,7 +110,7 @@ class View: UIView {
         NSLayoutConstraint.activate([
             lineWidthSlider.centerYAnchor.constraint(equalTo: clearButton.centerYAnchor),
             lineWidthSlider.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
-            lineWidthSlider.trailingAnchor.constraint(equalTo: clearButton.leadingAnchor, constant: -25)
+            lineWidthSlider.trailingAnchor.constraint(equalTo: loadButton.leadingAnchor, constant: -25)
         ])
         addSubview(lineWidthLabel)
         NSLayoutConstraint.activate([
