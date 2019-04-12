@@ -22,7 +22,7 @@ public struct PathSegment {
 open class SmoothCanvasView: UIView {
     public var lineWidth: CGFloat = 1.4
     public var lineColor: UIColor  = .black
-    public var writingPath = [PathSegment]()
+    private(set) var writingPath = [PathSegment]()
     /// The value sets if user can write with fingers.
     public var isWritingByTouchEnabled = false
     /// This value sets and returns if the drawn line is an eraser.
@@ -66,8 +66,22 @@ open class SmoothCanvasView: UIView {
         pathLayer.path = lastSection.points.interpolateHermiteFor().cgPath
     }
 
+    public func load(path: [PathSegment]) {
+        clearCanvas()
+        writingPath = path
+        for p in writingPath {
+            let layer = CAShapeLayer()
+            layer.lineJoin = CAShapeLayerLineJoin.round
+            layer.lineCap = CAShapeLayerLineCap.round
+            layer.fillColor = UIColor.clear.cgColor
+            layer.strokeColor = p.color
+            layer.lineWidth = p.width
+            self.layer.addSublayer(layer)
+            layer.path = p.points.interpolateHermiteFor().cgPath
+        }
+    }
+
     public func clearCanvas() {
-        print(writingPath)
         writingPath = [PathSegment]()
         self.layer.sublayers?.removeAll()
     }
