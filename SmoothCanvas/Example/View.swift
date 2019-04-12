@@ -18,12 +18,20 @@ class View: UIView {
         canvas.layer.cornerRadius = 8
         return canvas
     }()
+
     let clearButton = CustomButton(title: "Clear Canvas", color: .red)
     let saveButton = CustomButton(title: "Save", color: .green)
     let loadButton = CustomButton(title: "Load", color: .blue)
 
     let inputModeControl: UISegmentedControl = {
         let control = UISegmentedControl(items: ["Pencil Only", "All"])
+        control.translatesAutoresizingMaskIntoConstraints = false
+        control.selectedSegmentIndex = 0
+        control.customize(color: .black)
+        return control
+    }()
+    let toolControl: UISegmentedControl = {
+        let control = UISegmentedControl(items: ["pencil", "eraser"])
         control.translatesAutoresizingMaskIntoConstraints = false
         control.selectedSegmentIndex = 0
         control.customize(color: .black)
@@ -55,6 +63,7 @@ class View: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
+
         addSubview(clearButton)
         NSLayoutConstraint.activate([
             clearButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
@@ -73,11 +82,18 @@ class View: UIView {
             loadButton.centerYAnchor.constraint(equalTo: clearButton.centerYAnchor),
             loadButton.widthAnchor.constraint(equalToConstant: 80)
             ])
+
         addSubview(inputModeControl)
         NSLayoutConstraint.activate([
             inputModeControl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
             inputModeControl.topAnchor.constraint(equalTo: topAnchor, constant: 50)
         ])
+        addSubview(toolControl)
+        NSLayoutConstraint.activate([
+            toolControl.leadingAnchor.constraint(equalTo: inputModeControl.trailingAnchor, constant: 25),
+            toolControl.topAnchor.constraint(equalTo: topAnchor, constant: 50)
+            ])
+
         addSubview(blackButton)
         blackButton.isActive = true
         NSLayoutConstraint.activate([
@@ -99,6 +115,7 @@ class View: UIView {
             blueButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
             blueButton.widthAnchor.constraint(equalToConstant: 80)
         ])
+
         addSubview(canvas)
         NSLayoutConstraint.activate([
             canvas.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
@@ -106,6 +123,7 @@ class View: UIView {
             canvas.topAnchor.constraint(equalTo: blueButton.bottomAnchor, constant: 25),
             canvas.bottomAnchor.constraint(equalTo: clearButton.topAnchor, constant: -65)
         ])
+        
         addSubview(lineWidthSlider)
         NSLayoutConstraint.activate([
             lineWidthSlider.centerYAnchor.constraint(equalTo: clearButton.centerYAnchor),
