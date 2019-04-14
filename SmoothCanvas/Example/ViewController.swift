@@ -22,9 +22,14 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        myView.inputModeControl.addTarget(self, action: #selector(inputChanged), for: .valueChanged)
+        addSegmentedControlActions()
         addButtonActions()
-        adddSliderValueDidChangeAction()
+        addSliderValueDidChangeAction()
+    }
+
+    private func addSegmentedControlActions() {
+        myView.inputModeControl.addTarget(self, action: #selector(inputChanged), for: .valueChanged)
+        myView.toolControl.addTarget(self, action: #selector(toolChanged), for: .valueChanged)
     }
 
     private func addButtonActions() {
@@ -52,22 +57,27 @@ class ViewController: UIViewController {
     }
 
     @objc private func inputChanged(sender: UISegmentedControl!) {
-        // 💪 You can limit writing only with Apple Pencil or any stylus by setting `isWritingByTouchEnabled` property of SmoothCanvasView to false.
+        // 💪 You can limit writing only with Apple Pencil or any stylus by setting `isWritingByTouchEnabled` property of SmoothCanvasView to `false`
         myView.canvas.isWritingByTouchEnabled = sender.selectedSegmentIndex != 0
     }
 
-    private func adddSliderValueDidChangeAction() {
+    @objc private func toolChanged(sender: UISegmentedControl!) {
+        // 💪 You can change to eraser by setting `isEraser` property of SmoothCanvasView to `true`
+        myView.canvas.isEraser = sender.selectedSegmentIndex != 0
+    }
+
+    private func addSliderValueDidChangeAction() {
         myView.lineWidthSlider.addTarget(self, action: #selector(sliderValueDidChange), for: .valueChanged)
     }
 
     @objc private func sliderValueDidChange(sender: UISlider!) {
-        // 💪 You can customize the width of the line by setting the `lineWidth` property of SmoothCanvasView.
+        // 💪 You can customize the width of the line by setting the `lineWidth` property of SmoothCanvasView
         myView.canvas.lineWidth = CGFloat(1.4 * sender.value).rounded(toPlaces: 2)
         myView.lineWidthLabel.text = "Line width: \(CGFloat(sender.value).rounded(toPlaces: 2))"
     }
 
     @objc private func saveButtonAction() {
-        // 💪 You can get the whole path by the `writingPath` property of SmoothCanvasView.
+        // 💪 You can get the whole path by the `writingPath` property of SmoothCanvasView
         savedPath = myView.canvas.writingPath
     }
 
@@ -76,7 +86,7 @@ class ViewController: UIViewController {
             print("Saved path is not available.")
             return
         }
-        // 💪 You can load a previously saved path by calling the `load([PathSegment])` method of SmoothCanvasView.
+        // 💪 You can load a previously saved path by calling the `load([PathSegment])` method of SmoothCanvasView
         myView.canvas.load(path: path)
     }
 }

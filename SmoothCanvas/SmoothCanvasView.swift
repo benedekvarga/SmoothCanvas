@@ -8,7 +8,7 @@
 
 import UIKit
 
-public struct PathSegment {
+public struct PathSegment: Equatable {
     var points: [CGPoint] = []
     let color: CGColor
     let width: CGFloat
@@ -16,6 +16,14 @@ public struct PathSegment {
     init(color: UIColor, width: CGFloat, points: [CGPoint]) {
         self.color = color.cgColor
         self.width = width
+    }
+
+    public static func ==(lhs: PathSegment, rhs: PathSegment) -> Bool {
+        return lhs.points == rhs.points && lhs.color == rhs.color && lhs.width == rhs.width
+    }
+
+    public static func !=(lhs: PathSegment, rhs: PathSegment) -> Bool {
+        return lhs.points != rhs.points || lhs.color != rhs.color || lhs.width != rhs.width
     }
 }
 
@@ -64,6 +72,22 @@ open class SmoothCanvasView: UIView {
         writingPath.removeLast()
         writingPath.append(lastSection)
         pathLayer.path = lastSection.points.interpolateHermiteFor().cgPath
+
+        if isEraser {
+            getIntersectingPaths()
+        }
+    }
+
+    open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if isEraser {
+            removeLastPath()
+        }
+    }
+
+    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if isEraser {
+            removeLastPath()
+        }
     }
 
     public func load(path: [PathSegment]) {
@@ -84,6 +108,14 @@ open class SmoothCanvasView: UIView {
     public func clearCanvas() {
         writingPath = [PathSegment]()
         self.layer.sublayers?.removeAll()
+    }
+
+    private func getIntersectingPaths() {
+    }
+
+    private func removeLastPath() {
+        writingPath.removeLast()
+        self.layer.sublayers?.removeLast()
     }
 }
 
